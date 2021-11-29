@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmLibrary", "FilmLibrary\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmUI", "FilmUI\FilmUI.csproj", "{B7A47126-66BB-4EBA-B63B-CFF2347005D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmLibrary.Tests", "FilmLibrary.Tests\FilmLibrary.Tests.csproj", "{B6FE8A1C-3DE0-42F5-A528-4C36000F21D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{B7A47126-66BB-4EBA-B63B-CFF2347005D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7A47126-66BB-4EBA-B63B-CFF2347005D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7A47126-66BB-4EBA-B63B-CFF2347005D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6FE8A1C-3DE0-42F5-A528-4C36000F21D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6FE8A1C-3DE0-42F5-A528-4C36000F21D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6FE8A1C-3DE0-42F5-A528-4C36000F21D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6FE8A1C-3DE0-42F5-A528-4C36000F21D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

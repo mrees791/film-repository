@@ -12,10 +12,12 @@ namespace FilmLibrary
     public class FilmDatabase
     {
         private readonly string ConnectionString;
+        private readonly IDapperWrapper DapperWrapper;
 
-        public FilmDatabase(string connectionString)
+        public FilmDatabase(string connectionString, IDapperWrapper dapperWrapper)
         {
             ConnectionString = connectionString;
+            DapperWrapper = dapperWrapper;
         }
 
         public IEnumerable<Country> GetCountries()
