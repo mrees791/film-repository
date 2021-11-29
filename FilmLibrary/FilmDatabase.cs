@@ -24,7 +24,7 @@ namespace FilmLibrary
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                return connection.Query<Country>("SELECT * FROM Country;");
+                return DapperWrapper.Query<Country>(connection, "SELECT * FROM Country");
             }
         }
     }
