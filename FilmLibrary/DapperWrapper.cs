@@ -14,5 +14,10 @@ namespace FilmLibrary
         {
             return connection.Query<T>(sql);
         }
+
+        public IEnumerable<T> Query<T>(IDbConnection connection, string sql, object param)
+        {
+            return connection.Query<T>(sql, param);
+        }
     }
 }

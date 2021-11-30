@@ -22,7 +22,7 @@ namespace FilmLibrary.Tests
             var filmDb = new FilmDatabase(expectedConnectionString, mockDapper.Object);
             var expectedCountries = new List<Country>()
             {
-                new Country() { Name = "United States 2" }
+                new Country() { Name = "United States" }
             };
 
             mockDapper
