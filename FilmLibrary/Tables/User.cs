@@ -16,6 +16,6 @@ namespace FilmLibrary.Tables
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int CountryId { get; set; }
-        public int FavoriteFilmId { get; set; }
+        public int? FavoriteFilmId { get; set; }
     }
 }
