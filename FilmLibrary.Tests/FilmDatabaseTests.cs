@@ -54,10 +54,34 @@ namespace FilmLibrary.Tests
                 .ReturnsAsync(expectedCountry);
 
             // Act
-            var country = await filmDb.GetCountryByIdAsync(1);
+            Country country = await filmDb.GetCountryByIdAsync(1);
 
             // Assert
             Assert.Same(expectedCountry, country);
+        }
+
+        [Fact]
+        public async Task GetFilmsAsync_ShouldWork()
+        {
+            // Arrange
+            var mockDapper = new Mock<IDapperWrapper>();
+            var expectedQuery = "SELECT * FROM Film";
+            var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
+            var expectedFilms = new List<Film>()
+            {
+                new Film() { Id = 1, Name = "The Evil Dead", ReleaseDate = new DateTime(1981, 10, 15) },
+                new Film() { Id = 2, Name = "Evil Dead 2: Dead by Dawn", ReleaseDate = new DateTime(1987, 3, 13) },
+                new Film() { Id = 3, Name = "A Nightmare on Elm Street 3: Dream Warriors", ReleaseDate = new DateTime(1987, 2, 27) }
+            };
+
+            mockDapper.Setup(t => t.QueryAsync<Film>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString), expectedQuery))
+                .ReturnsAsync(expectedFilms);
+
+            // Act
+            IEnumerable<Film> films = await filmDb.GetFilmsAsync();
+
+            // Assert
+            Assert.Same(expectedFilms, films);
         }
     }
 }

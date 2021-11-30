@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Film]
+(
+  [Id] INT IDENTITY,
+  [Name] VARCHAR(100) NOT NULL,
+  [ReleaseDate] DATETIME NOT NULL,
+  PRIMARY KEY ([Id])
+)
