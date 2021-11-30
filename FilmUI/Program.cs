@@ -24,9 +24,9 @@ namespace FilmUI
             var countries = await filmDb.GetCountriesAsync();
             foreach (Country country in countries)
             {
-                Console.WriteLine($"{country.Id} - {country.Name}");
+                //Console.WriteLine($"{country.Id} - {country.Name}");
             }
-            IEnumerable<Tuple<User, Country>> joins = await filmDb.GetUserJoinOnCountry();
+            IEnumerable<Tuple<User, Country>> joins = await filmDb.GetUserJoinOnCountryAsync();
 
             foreach (Tuple<User, Country> join in joins)
             {

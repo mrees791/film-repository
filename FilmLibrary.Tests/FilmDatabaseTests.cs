@@ -128,5 +128,43 @@ namespace FilmLibrary.Tests
             // Assert
             Assert.Same(expectedUsers, users);
         }
+
+        [Fact]
+        public async Task GetUserJoinOnCountryAsync_ShouldWork()
+        {
+            // Arrange
+            var mockDapper = new Mock<IDapperWrapper>();
+            var expectedQuery = "SELECT * FROM [User] u INNER JOIN Country c ON u.CountryId = c.Id";
+            var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
+            var countries = new List<Country>()
+            {
+                new Country() { Id = 1, Name = "United States" },
+                new Country() { Id = 2, Name = "Canada" },
+                new Country() { Id = 3, Name = "Mexico" }
+            };
+            var users = new List<User>()
+            {
+                new User { Id = 1, CountryId = 1, FirstName = "Kevin", LastName = "Smith", FavoriteFilmId = 1 },
+                new User { Id = 2, CountryId = 2, FirstName = "Sarah", LastName = "Mitchell", FavoriteFilmId = 2 },
+                new User { Id = 3, CountryId = 3, FirstName = "Jacob", LastName = "Butler", FavoriteFilmId = 0 },
+            };
+            var expectedJoin = new List<Tuple<User, Country>>()
+            {
+                new Tuple<User, Country>(users[0], countries[0]),
+                new Tuple<User, Country>(users[1], countries[1]),
+                new Tuple<User, Country>(users[2], countries[2])
+            };
+
+            mockDapper.Setup(t => t.QueryAsync(
+                It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString), expectedQuery,
+                It.IsAny<Func<User, Country, Tuple<User, Country>>>(), null, null, true, "Id", null, null))
+                .ReturnsAsync(expectedJoin);
+
+            // Act
+            var join = await filmDb.GetUserJoinOnCountryAsync();
+
+            // Assert
+            Assert.Same(expectedJoin, join);
+        }
     }
 }
