@@ -12,14 +12,15 @@ namespace FilmLibrary.Tests
 {
     public class FilmDatabaseTests
     {
+        public readonly string ExpectedConnectionString = @"Server=SERVERNAME;Database=TESTDB;Integrated Security=true;";
+
         [Fact]
         public async Task GetCountriesAsync_ShouldWork()
         {
             // Arrange
             var mockDapper = new Mock<IDapperWrapper>();
-            var expectedConnectionString = @"Server=SERVERNAME;Database=TESTDB;Integrated Security=true;";
             var expectedQuery = "SELECT * FROM Country";
-            var filmDb = new FilmDatabase(expectedConnectionString, mockDapper.Object);
+            var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
             var expectedCountries = new List<Country>()
             {
                 new Country() { Id = 1, Name = "United States" },
@@ -28,7 +29,7 @@ namespace FilmLibrary.Tests
             };
 
             mockDapper
-                .Setup(t => t.QueryAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == expectedConnectionString), expectedQuery))
+                .Setup(t => t.QueryAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString), expectedQuery))
                 .ReturnsAsync(expectedCountries);
 
             // Act
@@ -43,12 +44,11 @@ namespace FilmLibrary.Tests
         {
             // Arrange
             var mockDapper = new Mock<IDapperWrapper>();
-            var expectedConnectionString = @"Server=SERVERNAME;Database=TESTDB;Integrated Security=true;";
             var expectedQuery = "SELECT * FROM Country WHERE Id=@id";
-            var filmDb = new FilmDatabase(expectedConnectionString, mockDapper.Object);
+            var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
             var expectedCountry = new Country() { Id = 1, Name = "United States" };
 
-            mockDapper.Setup(t => t.QueryFirstOrDefaultAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == expectedConnectionString),
+            mockDapper.Setup(t => t.QueryFirstOrDefaultAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString),
                 expectedQuery,
                 It.IsAny<object>()))
                 .ReturnsAsync(expectedCountry);

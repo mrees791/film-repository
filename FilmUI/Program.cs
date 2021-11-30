@@ -1,29 +1,30 @@
 ﻿using FilmLibrary;
 using FilmLibrary.Tables;
 using System;
+using System.Threading.Tasks;
 
 namespace FilmUI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            new Program().Start();
+            await new Program().StartAsync();
         }
 
-        public void Start()
+        public async Task StartAsync()
         {
             Console.WriteLine("Film Repository App");
 
             // Testing connection string
-            /*string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FilmDatabase;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FilmDatabase;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             DapperWrapper dapperWrapper = new DapperWrapper();
             FilmDatabase filmDb = new FilmDatabase(connectionString, dapperWrapper);
-            var countries = filmDb.GetCountries();
+            var countries = await filmDb.GetCountriesAsync();
             foreach (Country country in countries)
             {
                 Console.WriteLine($"{country.Id} - {country.Name}");
-            }*/
+            }
         }
     }
 }
