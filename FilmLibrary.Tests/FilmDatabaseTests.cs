@@ -50,7 +50,7 @@ namespace FilmLibrary.Tests
 
             mockDapper.Setup(t => t.QueryFirstOrDefaultAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString),
                 expectedQuery,
-                It.IsAny<object>()))
+                It.Is<object>(c => (int)c.GetType().GetProperty("id").GetValue(c) == 1)))
                 .ReturnsAsync(expectedCountry);
 
             // Act
