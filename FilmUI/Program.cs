@@ -21,16 +21,20 @@ namespace FilmUI
             string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FilmDatabase;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             DapperWrapper dapperWrapper = new DapperWrapper();
             FilmDatabase filmDb = new FilmDatabase(connectionString, dapperWrapper);
-            var countries = await filmDb.GetCountriesAsync();
-            foreach (Country country in countries)
-            {
-                //Console.WriteLine($"{country.Id} - {country.Name}");
-            }
-            IEnumerable<Tuple<User, Country>> joins = await filmDb.GetUserJoinOnCountryAsync();
 
-            foreach (Tuple<User, Country> join in joins)
+            IEnumerable<Tuple<User, Country, Film>> join = await filmDb.GetUserCountryFilmJoinAsync();
+
+            foreach (Tuple<User, Country, Film> joinItem in join)
             {
-                Console.WriteLine($"{join.Item1.FirstName} {join.Item1.LastName} {join.Item2.Name}");
+                Console.Write($"{joinItem.Item1.FirstName} {joinItem.Item1.LastName} {joinItem.Item2.Name} ");
+                if (joinItem.Item3 != null)
+                {
+                    Console.WriteLine($"{joinItem.Item3.Name}");
+                }
+                else
+                {
+                    Console.WriteLine("(None)");
+                }
             }
         }
     }

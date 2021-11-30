@@ -24,5 +24,10 @@ namespace FilmLibrary
         {
             return await connection.QueryAsync(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
         }
+
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(IDbConnection connection, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await connection.QueryAsync(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
     }
 }
