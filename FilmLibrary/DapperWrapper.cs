@@ -15,9 +15,9 @@ namespace FilmLibrary
             return await connection.QueryAsync<T>(sql);
         }
 
-        /*public IEnumerable<T> Query<T>(IDbConnection connection, string sql, object param)
+        public async Task<T> QueryFirstOrDefaultAsync<T>(IDbConnection connection, string sql, object param)
         {
-            return connection.Query<T>(sql, param);
-        }*/
+            return await connection.QueryFirstOrDefaultAsync<T>(sql, param);
+        }
     }
 }

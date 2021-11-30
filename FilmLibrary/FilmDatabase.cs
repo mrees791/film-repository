@@ -27,5 +27,13 @@ namespace FilmLibrary
                 return await DapperWrapper.QueryAsync<Country>(connection, "SELECT * FROM Country");
             }
         }
+
+        public async Task<Country> GetCountryByIdAsync(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                return await DapperWrapper.QueryFirstOrDefaultAsync<Country>(connection, "SELECT * FROM Country WHERE Id=@id", new { id });
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace FilmLibrary.Tests
     public class FilmDatabaseTests
     {
         [Fact]
-        public async Task GetCountriesAsync_ReturnsCountriesFromQueryUsingExpectedSQLQueryAndConnectionString()
+        public async Task GetCountriesAsync_ShouldWork()
         {
             // Arrange
             var mockDapper = new Mock<IDapperWrapper>();
@@ -22,7 +22,9 @@ namespace FilmLibrary.Tests
             var filmDb = new FilmDatabase(expectedConnectionString, mockDapper.Object);
             var expectedCountries = new List<Country>()
             {
-                new Country() { Name = "United States" }
+                new Country() { Id = 1, Name = "United States" },
+                new Country() { Id = 2, Name = "Canada" },
+                new Country() { Id = 3, Name = "Mexico" }
             };
 
             mockDapper
@@ -34,6 +36,28 @@ namespace FilmLibrary.Tests
 
             // Assert
             Assert.Same(expectedCountries, countries);
+        }
+
+        [Fact]
+        public async Task GetCountryByIdAsync_ShouldWork()
+        {
+            // Arrange
+            var mockDapper = new Mock<IDapperWrapper>();
+            var expectedConnectionString = @"Server=SERVERNAME;Database=TESTDB;Integrated Security=true;";
+            var expectedQuery = "SELECT * FROM Country WHERE Id=@id";
+            var filmDb = new FilmDatabase(expectedConnectionString, mockDapper.Object);
+            var expectedCountry = new Country() { Id = 1, Name = "United States" };
+
+            mockDapper.Setup(t => t.QueryFirstOrDefaultAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == expectedConnectionString),
+                expectedQuery,
+                It.IsAny<object>()))
+                .ReturnsAsync(expectedCountry);
+
+            // Act
+            var country = await filmDb.GetCountryByIdAsync(2);
+
+            // Assert
+            Assert.Same(expectedCountry, country);
         }
     }
 }
