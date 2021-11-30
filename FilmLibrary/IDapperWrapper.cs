@@ -6,7 +6,7 @@ namespace FilmLibrary
 {
     public interface IDapperWrapper
     {
-        Task<IEnumerable<T>> QueryAsync<T>(IDbConnection connection, string sql);
-        Task<T> QueryFirstOrDefaultAsync<T>(IDbConnection connection, string sql, object param);
+        Task<IEnumerable<T>> QueryAsync<T>(IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        Task<T> QueryFirstOrDefaultAsync<T>(IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
     }
 }

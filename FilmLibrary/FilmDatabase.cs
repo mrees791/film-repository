@@ -59,5 +59,16 @@ namespace FilmLibrary
                 return await DapperWrapper.QueryAsync<User>(connection, "SELECT * FROM User");
             }
         }
+
+        /*public async Task GetUserJoinOnCountry()
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                string sql = @"SELECT *
+                           FROM User u
+                           INNER JOIN Country c ON u.CountryId = c.Id";
+                var users = await DapperWrapper.QueryAsync<
+            }
+        }*/
     }
 }

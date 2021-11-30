@@ -29,7 +29,7 @@ namespace FilmLibrary.Tests
             };
 
             mockDapper
-                .Setup(t => t.QueryAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString), expectedQuery))
+                .Setup(t => t.QueryAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString), expectedQuery, null, null, null, null))
                 .ReturnsAsync(expectedCountries);
 
             // Act
@@ -50,7 +50,7 @@ namespace FilmLibrary.Tests
 
             mockDapper.Setup(t => t.QueryFirstOrDefaultAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString),
                 expectedQuery,
-                It.Is<object>(c => (int)c.GetType().GetProperty("id").GetValue(c) == 1)))
+                It.Is<object>(c => (int)c.GetType().GetProperty("id").GetValue(c) == 1), null, null, null))
                 .ReturnsAsync(expectedCountry);
 
             // Act
@@ -74,7 +74,7 @@ namespace FilmLibrary.Tests
                 new Film() { Id = 3, Name = "A Nightmare on Elm Street 3: Dream Warriors", ReleaseDate = new DateTime(1987, 2, 27) }
             };
 
-            mockDapper.Setup(t => t.QueryAsync<Film>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString), expectedQuery))
+            mockDapper.Setup(t => t.QueryAsync<Film>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString), expectedQuery, null, null, null, null))
                 .ReturnsAsync(expectedFilms);
 
             // Act
@@ -95,7 +95,7 @@ namespace FilmLibrary.Tests
 
             mockDapper.Setup(t => t.QueryFirstOrDefaultAsync<Film>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString),
                 expectedQuery,
-                It.Is<object>(c => (string)c.GetType().GetProperty("name").GetValue(c) == "Sunset Avenue")))
+                It.Is<object>(c => (string)c.GetType().GetProperty("name").GetValue(c) == "Sunset Avenue"), null, null, null))
                 .ReturnsAsync(expectedFilm);
 
             // Act
@@ -119,7 +119,7 @@ namespace FilmLibrary.Tests
                 new User { Id = 3, CountryId = 2, FirstName = "Jacob", LastName = "Butler", FavoriteFilmId = 0 },
             };
 
-            mockDapper.Setup(t => t.QueryAsync<User>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString), expectedQuery))
+            mockDapper.Setup(t => t.QueryAsync<User>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString), expectedQuery, null, null, null, null))
                 .ReturnsAsync(expectedUsers);
 
             // Act
