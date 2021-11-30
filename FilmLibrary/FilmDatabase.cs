@@ -51,5 +51,13 @@ namespace FilmLibrary
                 return await DapperWrapper.QueryFirstOrDefaultAsync<Film>(connection, "SELECT * FROM Film WHERE Name=@name", new { name });
             }
         }
+
+        public async Task<IEnumerable<User>> GetUsersAsync()
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                return await DapperWrapper.QueryAsync<User>(connection, "SELECT * FROM User");
+            }
+        }
     }
 }

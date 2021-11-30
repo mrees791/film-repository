@@ -104,5 +104,29 @@ namespace FilmLibrary.Tests
             // Assert
             Assert.Same(expectedFilm, film);
         }
+
+        [Fact]
+        public async Task GetUsersAsync_ShouldWork()
+        {
+            // Arrange
+            var mockDapper = new Mock<IDapperWrapper>();
+            var expectedQuery = "SELECT * FROM User";
+            var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
+            var expectedUsers = new List<User>()
+            {
+                new User { Id = 1, CountryId = 2, FirstName = "Kevin", LastName = "Smith", FavoriteFilmId = 1 },
+                new User { Id = 2, CountryId = 1, FirstName = "Sarah", LastName = "Mitchell", FavoriteFilmId = 2 },
+                new User { Id = 3, CountryId = 2, FirstName = "Jacob", LastName = "Butler", FavoriteFilmId = 0 },
+            };
+
+            mockDapper.Setup(t => t.QueryAsync<User>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString), expectedQuery))
+                .ReturnsAsync(expectedUsers);
+
+            // Act
+            IEnumerable<User> users = await filmDb.GetUsersAsync();
+
+            // Assert
+            Assert.Same(expectedUsers, users);
+        }
     }
 }
