@@ -54,7 +54,7 @@ namespace FilmLibrary.Tests
                 .ReturnsAsync(expectedCountry);
 
             // Act
-            var country = await filmDb.GetCountryByIdAsync(2);
+            var country = await filmDb.GetCountryByIdAsync(1);
 
             // Assert
             Assert.Same(expectedCountry, country);
