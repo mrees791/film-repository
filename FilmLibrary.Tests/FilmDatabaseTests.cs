@@ -13,7 +13,7 @@ namespace FilmLibrary.Tests
     public class FilmDatabaseTests
     {
         [Fact]
-        public void GetCountries_ReturnsCountriesFromQueryUsingExpectedSQLQueryAndConnectionString()
+        public async Task GetCountriesAsync_ReturnsCountriesFromQueryUsingExpectedSQLQueryAndConnectionString()
         {
             // Arrange
             var mockDapper = new Mock<IDapperWrapper>();
@@ -26,11 +26,11 @@ namespace FilmLibrary.Tests
             };
 
             mockDapper
-                .Setup(t => t.Query<Country>(It.Is<IDbConnection>(db => db.ConnectionString == expectedConnectionString), expectedQuery))
-                .Returns(expectedCountries);
+                .Setup(t => t.QueryAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == expectedConnectionString), expectedQuery))
+                .ReturnsAsync(expectedCountries);
 
             // Act
-            var countries = filmDb.GetCountries();
+            IEnumerable<Country> countries = await filmDb.GetCountriesAsync();
 
             // Assert
             Assert.Same(expectedCountries, countries);

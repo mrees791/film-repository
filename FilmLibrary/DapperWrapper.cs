@@ -10,14 +10,14 @@ namespace FilmLibrary
 {
     public class DapperWrapper : IDapperWrapper
     {
-        public IEnumerable<T> Query<T>(IDbConnection connection, string sql)
+        public async Task<IEnumerable<T>> QueryAsync<T>(IDbConnection connection, string sql)
         {
-            return connection.Query<T>(sql);
+            return await connection.QueryAsync<T>(sql);
         }
 
-        public IEnumerable<T> Query<T>(IDbConnection connection, string sql, object param)
+        /*public IEnumerable<T> Query<T>(IDbConnection connection, string sql, object param)
         {
             return connection.Query<T>(sql, param);
-        }
+        }*/
     }
 }

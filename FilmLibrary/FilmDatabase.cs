@@ -20,11 +20,11 @@ namespace FilmLibrary
             DapperWrapper = dapperWrapper;
         }
 
-        public IEnumerable<Country> GetCountries()
+        public async Task<IEnumerable<Country>> GetCountriesAsync()
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                return DapperWrapper.Query<Country>(connection, "SELECT * FROM Country");
+                return await DapperWrapper.QueryAsync<Country>(connection, "SELECT * FROM Country");
             }
         }
     }
