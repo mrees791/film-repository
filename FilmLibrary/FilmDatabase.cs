@@ -60,15 +60,18 @@ namespace FilmLibrary
             }
         }
 
-        /*public async Task GetUserJoinOnCountry()
+        public async Task<IEnumerable<Tuple<User, Country>>> GetUserJoinOnCountry()
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
                 string sql = @"SELECT *
-                           FROM User u
-                           INNER JOIN Country c ON u.CountryId = c.Id";
-                var users = await DapperWrapper.QueryAsync<
+                               FROM [User] u
+                               INNER JOIN Country c ON u.CountryId = c.Id";
+                return await DapperWrapper.QueryAsync<User, Country, Tuple<User, Country>>(connection, sql, (user, country) =>
+                {
+                    return new Tuple<User, Country>(user, country);
+                });
             }
-        }*/
+        }
     }
 }

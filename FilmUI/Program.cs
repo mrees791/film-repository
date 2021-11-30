@@ -1,6 +1,7 @@
 ﻿using FilmLibrary;
 using FilmLibrary.Tables;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FilmUI
@@ -24,6 +25,12 @@ namespace FilmUI
             foreach (Country country in countries)
             {
                 Console.WriteLine($"{country.Id} - {country.Name}");
+            }
+            IEnumerable<Tuple<User, Country>> joins = await filmDb.GetUserJoinOnCountry();
+
+            foreach (Tuple<User, Country> join in joins)
+            {
+                Console.WriteLine($"{join.Item1.FirstName} {join.Item1.LastName} {join.Item2.Name}");
             }
         }
     }
