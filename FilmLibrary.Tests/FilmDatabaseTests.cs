@@ -83,5 +83,26 @@ namespace FilmLibrary.Tests
             // Assert
             Assert.Same(expectedFilms, films);
         }
+
+        [Fact]
+        public async Task GetFilmByNameAsync_ShouldWork()
+        {
+            // Arrange
+            var mockDapper = new Mock<IDapperWrapper>();
+            var expectedQuery = "SELECT * FROM Film WHERE Name=@name";
+            var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
+            var expectedFilm = new Film() { Id = 1, Name = "Sunset Avenue", ReleaseDate = new DateTime(1999, 5, 20) };
+
+            mockDapper.Setup(t => t.QueryFirstOrDefaultAsync<Film>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString),
+                expectedQuery,
+                It.Is<object>(c => (string)c.GetType().GetProperty("name").GetValue(c) == "Sunset Avenue")))
+                .ReturnsAsync(expectedFilm);
+
+            // Act
+            Film film = await filmDb.GetFilmByNameAsync("Sunset Avenue");
+
+            // Assert
+            Assert.Same(expectedFilm, film);
+        }
     }
 }
