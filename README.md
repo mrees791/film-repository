@@ -72,7 +72,7 @@ Then install the Data storage and processing toolset.
 
 1. Clone the repo
    ```sh
-   https://github.com/mrees791/film-repository.git
+   git clone https://github.com/mrees791/film-repository.git
    ```
 2. Open the FilmRepository.sln solution file with Visual Studio.
 3. Build the solution in Visual Studio.
