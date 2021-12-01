@@ -1,6 +1,7 @@
 ﻿using FilmLibrary;
 using FilmLibrary.Tables;
 using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,21 +16,23 @@ namespace FilmUI
 
         public async Task StartAsync()
         {
-            Console.WriteLine("Film Repository App");
-
-            // Testing connection string
-            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FilmDatabase;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connectionString = ConfigurationManager.ConnectionStrings["FilmDBConnectionString"].ConnectionString;
             DapperWrapper dapperWrapper = new DapperWrapper();
             FilmDatabase filmDb = new FilmDatabase(connectionString, dapperWrapper);
-
             IEnumerable<Tuple<User, Country, Film>> join = await filmDb.GetUserCountryFilmJoinAsync();
 
-            foreach (Tuple<User, Country, Film> joinItem in join)
+            Console.WriteLine("Film Repository App");
+            PrintUserFilmList(join);
+        }
+
+        private void PrintUserFilmList(IEnumerable<Tuple<User, Country, Film>> userFilmList)
+        {
+            foreach (Tuple<User, Country, Film> item in userFilmList)
             {
-                Console.Write($"{joinItem.Item1.FirstName} {joinItem.Item1.LastName} {joinItem.Item2.Name} ");
-                if (joinItem.Item3 != null)
+                Console.Write($"{item.Item1.FirstName} {item.Item1.LastName} {item.Item2.Name} ");
+                if (item.Item3 != null)
                 {
-                    Console.WriteLine($"{joinItem.Item3.Name}");
+                    Console.WriteLine($"{item.Item3.Name}");
                 }
                 else
                 {
