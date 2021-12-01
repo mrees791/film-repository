@@ -29,7 +29,9 @@ namespace FilmUI
         {
             foreach (Tuple<User, Country, Film> item in userFilmList)
             {
-                Console.Write($"{item.Item1.FirstName} {item.Item1.LastName} {item.Item2.Name} ");
+                Console.Write($"Name: {item.Item1.FirstName} {item.Item1.LastName} ".PadRight(22));
+                Console.Write($"| Country: {item.Item2.Name} ".PadRight(18));
+                Console.Write($"| Favorite Film: ");
                 if (item.Item3 != null)
                 {
                     Console.WriteLine($"{item.Item3.Name}");
