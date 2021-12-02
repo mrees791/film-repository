@@ -23,9 +23,9 @@ namespace FilmLibrary.Tests
             var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
             var expectedCountries = new List<Country>()
             {
-                new Country() { Id = 1, Name = "United States" },
-                new Country() { Id = 2, Name = "Canada" },
-                new Country() { Id = 3, Name = "Mexico" }
+                new Country { Id = 1, Name = "United States" },
+                new Country { Id = 2, Name = "Canada" },
+                new Country { Id = 3, Name = "Mexico" }
             };
 
             mockDapper
@@ -46,7 +46,7 @@ namespace FilmLibrary.Tests
             var mockDapper = new Mock<IDapperWrapper>();
             var expectedQuery = "SELECT * FROM Country WHERE Id=@id";
             var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
-            var expectedCountry = new Country() { Id = 1, Name = "United States" };
+            var expectedCountry = new Country { Id = 1, Name = "United States" };
 
             mockDapper.Setup(t => t.QueryFirstOrDefaultAsync<Country>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString),
                 expectedQuery,
@@ -91,7 +91,7 @@ namespace FilmLibrary.Tests
             var mockDapper = new Mock<IDapperWrapper>();
             var expectedQuery = "SELECT * FROM Film WHERE Name=@name";
             var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
-            var expectedFilm = new Film() { Id = 1, Name = "Sunset Avenue", ReleaseDate = new DateTime(1999, 5, 20) };
+            var expectedFilm = new Film { Id = 1, Name = "Sunset Avenue", ReleaseDate = new DateTime(1999, 5, 20) };
 
             mockDapper.Setup(t => t.QueryFirstOrDefaultAsync<Film>(It.Is<IDbConnection>(db => db.ConnectionString == ExpectedConnectionString),
                 expectedQuery,
@@ -138,9 +138,9 @@ namespace FilmLibrary.Tests
             var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
             var countries = new List<Country>()
             {
-                new Country() { Id = 1, Name = "United States" },
-                new Country() { Id = 2, Name = "Canada" },
-                new Country() { Id = 3, Name = "Mexico" }
+                new Country { Id = 1, Name = "United States" },
+                new Country { Id = 2, Name = "Canada" },
+                new Country { Id = 3, Name = "Mexico" }
             };
             var users = new List<User>()
             {
@@ -176,9 +176,9 @@ namespace FilmLibrary.Tests
             var filmDb = new FilmDatabase(ExpectedConnectionString, mockDapper.Object);
             var countries = new List<Country>()
             {
-                new Country() { Id = 1, Name = "United States" },
-                new Country() { Id = 2, Name = "Canada" },
-                new Country() { Id = 3, Name = "Mexico" }
+                new Country { Id = 1, Name = "United States" },
+                new Country { Id = 2, Name = "Canada" },
+                new Country { Id = 3, Name = "Mexico" }
             };
             var users = new List<User>()
             {
