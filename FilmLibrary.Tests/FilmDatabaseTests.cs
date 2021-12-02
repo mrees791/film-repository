@@ -10,6 +10,9 @@ using Xunit;
 
 namespace FilmLibrary.Tests
 {
+    /// <summary>
+    /// Tests all the methods within the FilmDatabase class.
+    /// </summary>
     public class FilmDatabaseTests
     {
         public readonly string ExpectedConnectionString = @"Server=SERVERNAME;Database=TESTDB;Integrated Security=true;";

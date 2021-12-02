@@ -8,6 +8,9 @@ using Dapper;
 
 namespace FilmLibrary
 {
+    /// <summary>
+    /// Encapsulates Dapper's static methods.
+    /// </summary>
     public class DapperWrapper : IDapperWrapper
     {
         public async Task<T> QueryFirstOrDefaultAsync<T>(IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)

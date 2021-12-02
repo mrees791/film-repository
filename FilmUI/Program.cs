@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace FilmUI
 {
+    /// <summary>
+    /// A console application which displays a list of all users and their favorite films.
+    /// </summary>
     public class Program
     {
         public static async Task Main(string[] args)
@@ -25,6 +28,10 @@ namespace FilmUI
             PrintUserFilmList(join);
         }
 
+        /// <summary>
+        /// Prints each user's name, country of origin, and favorite film if they have one.
+        /// </summary>
+        /// <param name="userFilmList"></param>
         private void PrintUserFilmList(IEnumerable<Tuple<User, Country, Film>> userFilmList)
         {
             foreach (Tuple<User, Country, Film> item in userFilmList)
